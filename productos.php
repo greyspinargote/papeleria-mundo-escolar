@@ -22,63 +22,153 @@ include "includes/navbar.php";
 
     </div>
 
+    <!-- BUSCADOR -->
     <div class="buscador-productos">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
 
         <input
             type="text"
             id="buscarProducto"
-            placeholder="Buscar productos...">
+            placeholder="Buscar productos..."
+            autocomplete="off">
 
     </div>
 
-    <div class="grid-productos">
+    <!-- CONTENEDOR DE PRODUCTOS -->
+    <div class="grid-productos" id="listaProductos">
 
-        <?php while($producto = mysqli_fetch_assoc($productos)){ ?>
+        <?php if ($productos && mysqli_num_rows($productos) > 0): ?>
 
-            <div class="producto">
+            <?php while ($producto = mysqli_fetch_assoc($productos)): ?>
 
-                <img
-                    src="assets/img/productos/<?php echo $producto['imagen']; ?>"
-                    alt="<?php echo $producto['nombre']; ?>">
+                <div class="producto">
 
-                <h3>
+                    <!-- IMAGEN -->
+                    <div class="imagen-producto">
 
-                    <?php echo $producto['nombre']; ?>
+                        <img
+                            src="assets/img/productos/<?php echo htmlspecialchars($producto['imagen'] ?? ''); ?>"
+                            alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
 
-                </h3>
+                    </div>
 
-                <span>
+                    <!-- INFORMACIÓN -->
+                    <div class="info-producto">
 
-                    <?php echo moneda($producto['precio']); ?>
+                        <h3>
+                            <?php echo htmlspecialchars($producto['nombre']); ?>
+                        </h3>
 
-                </span>
+                        <p class="descripcion-producto">
 
-                <div class="acciones-producto">
+                            <?php
 
-                    <a
-                        href="detalle_producto.php?id=<?php echo $producto['id']; ?>"
-                        class="btn">
+                            $descripcion = $producto['descripcion'] ?? '';
 
-                        Ver detalle
+                            if (strlen($descripcion) > 80) {
+                                echo htmlspecialchars(substr($descripcion, 0, 80)) . "...";
+                            } else {
+                                echo htmlspecialchars($descripcion);
+                            }
 
-                    </a>
+                            ?>
 
-                    <button
-                       <a href="agregar_carrito.php?id=<?php echo $producto['id']; ?>" class="btn">
+                        </p>
 
-                        <i class="fa-solid fa-cart-shopping"></i>
+                        <div class="precio-producto">
 
-                        Agregar al carrito
+                            <?php echo moneda($producto['precio']); ?>
 
-                    </a>
+                        </div>
 
-                    </button>
+                        <!-- STOCK -->
+                        <?php if ($producto['stock'] > 0): ?>
+
+                            <p class="stock disponible">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Disponible:
+                                <?php echo (int)$producto['stock']; ?>
+
+                            </p>
+
+                        <?php else: ?>
+
+                            <p class="stock agotado">
+
+                                <i class="fa-solid fa-circle-xmark"></i>
+
+                                Producto agotado
+
+                            </p>
+
+                        <?php endif; ?>
+
+                        <!-- ACCIONES -->
+                        <div class="acciones-producto">
+
+                            <a
+                                href="detalle_producto.php?id=<?php echo (int)$producto['id']; ?>"
+                                class="btn btn-detalle">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                Ver detalle
+
+                            </a>
+
+                            <?php if ($producto['stock'] > 0): ?>
+
+                                <a
+                                    href="agregar_carrito.php?id=<?php echo (int)$producto['id']; ?>"
+                                    class="btn btn-carrito">
+
+                                    <i class="fa-solid fa-cart-shopping"></i>
+
+                                    Agregar
+
+                                </a>
+
+                            <?php else: ?>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-agotado"
+                                    disabled>
+
+                                    <i class="fa-solid fa-ban"></i>
+
+                                    Agotado
+
+                                </button>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
+            <?php endwhile; ?>
+
+        <?php else: ?>
+
+            <div class="sin-productos">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <h3>No hay productos disponibles</h3>
+
+                <p>
+                    En este momento no tenemos productos disponibles en el catálogo.
+                </p>
+
             </div>
 
-        <?php } ?>
+        <?php endif; ?>
 
     </div>
 

@@ -3,7 +3,13 @@
 require_once "includes/conexion.php";
 require_once "includes/funciones.php";
 
-if(!isset($_GET['id'])){
+/*
+|--------------------------------------------------------------------------
+| VALIDAR ID DEL PRODUCTO
+|--------------------------------------------------------------------------
+*/
+
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
     header("Location: productos.php");
     exit();
@@ -12,9 +18,15 @@ if(!isset($_GET['id'])){
 
 $id = (int)$_GET['id'];
 
-$resultado = obtenerProducto($conexion,$id);
+/*
+|--------------------------------------------------------------------------
+| BUSCAR PRODUCTO
+|--------------------------------------------------------------------------
+*/
 
-if(mysqli_num_rows($resultado)==0){
+$resultado = obtenerProducto($conexion, $id);
+
+if (!$resultado || mysqli_num_rows($resultado) === 0) {
 
     header("Location: productos.php");
     exit();
@@ -22,6 +34,26 @@ if(mysqli_num_rows($resultado)==0){
 }
 
 $producto = mysqli_fetch_assoc($resultado);
+
+/*
+|--------------------------------------------------------------------------
+| DATOS DEL PRODUCTO
+|--------------------------------------------------------------------------
+*/
+
+$nombre = htmlspecialchars($producto['nombre']);
+
+$descripcion = htmlspecialchars(
+    $producto['descripcion'] ?? 'Sin descripción disponible.'
+);
+
+$imagen = htmlspecialchars(
+    $producto['imagen'] ?? ''
+);
+
+$precio = moneda($producto['precio']);
+
+$stock = (int)$producto['stock'];
 
 include "includes/header.php";
 include "includes/navbar.php";
@@ -32,56 +64,116 @@ include "includes/navbar.php";
 
     <div class="contenedor-detalle">
 
+        <!-- IMAGEN DEL PRODUCTO -->
         <div class="imagen-detalle">
 
-            <img src="assets/img/productos/<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>">
+            <img
+                src="assets/img/productos/<?php echo $imagen; ?>"
+                alt="<?php echo $nombre; ?>">
 
         </div>
 
+        <!-- INFORMACIÓN DEL PRODUCTO -->
         <div class="informacion-detalle">
 
-            <h2>
+            <span class="etiqueta-producto">
+                Mundo Escolar
+            </span>
 
-                <?php echo $producto['nombre']; ?>
+            <h1>
+                <?php echo $nombre; ?>
+            </h1>
 
-            </h2>
+            <div class="precio-detalle">
+
+                <?php echo $precio; ?>
+
+            </div>
+
+            <div class="separador"></div>
 
             <h3>
-
-                <?php echo moneda($producto['precio']); ?>
-
+                Descripción
             </h3>
 
-            <p>
+            <p class="descripcion-detalle">
 
-                <?php echo $producto['descripcion']; ?>
-
-            </p>
-
-            <p>
-
-                <strong>Stock disponible:</strong>
-
-                <?php echo $producto['stock']; ?>
+                <?php echo $descripcion; ?>
 
             </p>
 
-            <button
-            <a href="agregar_carrito.php?id=<?php echo $producto['id']; ?>" class="btn">
+            <!-- STOCK -->
+            <?php if ($stock > 0): ?>
 
-            <i class="fa-solid fa-cart-shopping"></i>
+                <div class="stock-detalle disponible">
 
-             Agregar al carrito
+                    <i class="fa-solid fa-circle-check"></i>
 
-            </a>
+                    <strong>Producto disponible</strong>
 
-            </button>
+                    <span>
+                        <?php echo $stock; ?> unidades disponibles
+                    </span>
 
-            <a href="productos.php" class="btn">
+                </div>
 
-                Volver al catálogo
+            <?php else: ?>
 
-            </a>
+                <div class="stock-detalle agotado">
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                    <strong>Producto agotado</strong>
+
+                    <span>
+                        Actualmente no tenemos unidades disponibles.
+                    </span>
+
+                </div>
+
+            <?php endif; ?>
+
+            <!-- BOTONES -->
+            <div class="acciones-detalle">
+
+                <?php if ($stock > 0): ?>
+
+                    <a
+                        href="agregar_carrito.php?id=<?php echo (int)$producto['id']; ?>"
+                        class="btn btn-carrito">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Agregar al carrito
+
+                    </a>
+
+                <?php else: ?>
+
+                    <button
+                        type="button"
+                        class="btn btn-agotado"
+                        disabled>
+
+                        <i class="fa-solid fa-ban"></i>
+
+                        Producto agotado
+
+                    </button>
+
+                <?php endif; ?>
+
+                <a
+                    href="productos.php"
+                    class="btn btn-volver">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Volver al catálogo
+
+                </a>
+
+            </div>
 
         </div>
 
