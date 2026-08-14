@@ -1,3 +1,15 @@
+<?php
+
+$totalCarrito = 0;
+
+if (isset($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $itemCarrito) {
+        $totalCarrito += $itemCarrito['cantidad'];
+    }
+}
+
+?>
+
 <header>
 
 <div class="topbar">
@@ -76,35 +88,49 @@ Contacto
 
 <div class="acciones">
 
-<div class="buscar">
+<form class="buscar" action="productos.php" method="GET">
 
 <input
 type="text"
-id="buscarProducto"
-placeholder="Buscar productos...">
+id="buscarNav"
+name="buscar"
+placeholder="Buscar productos..."
+autocomplete="off">
 
-<button>
+<button type="submit">
 
 <i class="fa fa-search"></i>
 
 </button>
 
-</div>
+</form>
 
 <a href="carrito.php" class="carrito-icono">
 
     <i class="fa-solid fa-cart-shopping"></i>
 
-    <span id="contadorCarrito">0</span>
+    <span id="contadorCarrito"><?php echo $totalCarrito; ?></span>
 
 </a>
 
-<a href="login.php"
-class="login">
+<?php if (isset($_SESSION['cliente_id'])): ?>
 
-Iniciar sesión
+    <div class="acciones-cliente" style="display:flex; align-items:center; gap:12px;">
 
-</a>
+        <span style="color:var(--azul); font-weight:600;">
+            <i class="fa-solid fa-circle-user"></i>
+            Hola, <?php echo htmlspecialchars($_SESSION['cliente_nombre']); ?>
+        </span>
+
+        <a href="logout.php" class="login">Cerrar sesión</a>
+
+    </div>
+
+<?php else: ?>
+
+    <a href="login.php" class="login">Iniciar sesión</a>
+
+<?php endif; ?>
 
 </div>
 

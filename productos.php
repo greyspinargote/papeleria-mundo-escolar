@@ -3,7 +3,9 @@
 require_once "includes/conexion.php";
 require_once "includes/funciones.php";
 
-$productos = obtenerProductos($conexion);
+$busqueda = isset($_GET['buscar']) ? trim($_GET['buscar']) : "";
+
+$productos = obtenerProductos($conexion, $busqueda);
 
 include "includes/header.php";
 include "includes/navbar.php";
@@ -25,15 +27,20 @@ include "includes/navbar.php";
     <!-- BUSCADOR -->
     <div class="buscador-productos">
 
+    <div class="caja-buscador">
+
         <i class="fa-solid fa-magnifying-glass"></i>
 
         <input
             type="text"
             id="buscarProducto"
             placeholder="Buscar productos..."
+            value="<?php echo htmlspecialchars($busqueda); ?>"
             autocomplete="off">
 
     </div>
+
+</div>
 
     <!-- CONTENEDOR DE PRODUCTOS -->
     <div class="grid-productos" id="listaProductos">
@@ -158,15 +165,25 @@ include "includes/navbar.php";
 
             <div class="sin-productos">
 
-                <i class="fa-solid fa-box-open"></i>
+    <i class="fa-solid fa-box-open"></i>
 
-                <h3>No hay productos disponibles</h3>
+    <?php if ($busqueda !== ""): ?>
 
-                <p>
-                    En este momento no tenemos productos disponibles en el catálogo.
-                </p>
+        <h3>No se encontraron productos para "<?php echo htmlspecialchars($busqueda); ?>"</h3>
 
-            </div>
+        <p>Intenta con otra palabra o revisa el catálogo completo.</p>
+
+    <?php else: ?>
+
+        <h3>No hay productos disponibles</h3>
+
+        <p>
+            En este momento no tenemos productos disponibles en el catálogo.
+        </p>
+
+    <?php endif; ?>
+
+</div>
 
         <?php endif; ?>
 

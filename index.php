@@ -133,20 +133,13 @@ include "includes/navbar.php";
 
             </span>
 
-            <button
-                onclick="agregarCarrito(
-                <?php echo $producto['id']; ?>,
-                '<?php echo addslashes($producto['nombre']); ?>',
-                <?php echo $producto['precio']; ?>,
-                'assets/img/productos/<?php echo $producto['imagen']; ?>'
-                )">
+            <a href="agregar_carrito.php?id=<?php echo $producto['id']; ?>" class="btn-agregar-destacado">
 
-                <i class="fa-solid fa-cart-shopping"></i>
+    <i class="fa-solid fa-cart-shopping"></i>
 
-                Agregar al carrito
+    Agregar al carrito
 
-            </button>
-
+</a>
         </div>
 
         <?php } ?>

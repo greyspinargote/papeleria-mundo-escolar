@@ -2,7 +2,7 @@
 
 /* FUNCIONES GENERALES */
 
-/*  OBTENER CATEGORÍ */
+/*  OBTENER CATEGORIA */
 
 function obtenerCategorias($conexion)
 {
@@ -19,13 +19,21 @@ function obtenerCategorias($conexion)
 
 /* OBTENER PRODUCTOS */
 
-function obtenerProductos($conexion)
+function obtenerProductos($conexion, $busqueda = "")
 {
 
     $sql = "SELECT *
             FROM productos
-            WHERE estado = 1
-            ORDER BY id DESC";
+            WHERE estado = 1";
+
+    if ($busqueda !== "") {
+
+        $busqueda = mysqli_real_escape_string($conexion, $busqueda);
+        $sql .= " AND nombre LIKE '%$busqueda%'";
+
+    }
+
+    $sql .= " ORDER BY id DESC";
 
     $resultado = mysqli_query($conexion, $sql);
 

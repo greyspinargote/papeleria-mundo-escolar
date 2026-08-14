@@ -81,8 +81,6 @@ Síguenos
 
 <script src="assets/js/slider.js"></script>
 
-<script src="assets/js/carrito.js"></script>
-
 <script src="assets/js/buscador.js"></script>
 
 </body>

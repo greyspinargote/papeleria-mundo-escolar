@@ -1,5 +1,10 @@
 <?php
 
+/* INICIAR SESIÓN (una sola vez, la necesita el carrito) */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 /* CONEXIÓN A LA BASE DE DATOS */
 
 $servidor = "localhost";
