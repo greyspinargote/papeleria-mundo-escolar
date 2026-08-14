@@ -1,7 +1,27 @@
 <?php
 
+require_once "includes/conexion.php";
+require_once "includes/funciones.php";
+
 include "includes/header.php";
 include "includes/navbar.php";
+
+/* Si el cliente inició sesión, precargamos sus datos */
+
+$datosCliente = null;
+
+if (isset($_SESSION['cliente_id'])) {
+
+    $idCliente = (int)$_SESSION['cliente_id'];
+
+    $resultado = mysqli_query($conexion, "SELECT * FROM clientes WHERE id = $idCliente");
+    $datosCliente = mysqli_fetch_assoc($resultado);
+
+}
+
+/* Si el carrito está vacío, no tiene sentido mostrar el formulario */
+
+$carritoVacio = !isset($_SESSION['carrito']) || count($_SESSION['carrito']) === 0;
 
 ?>
 
@@ -19,6 +39,22 @@ include "includes/navbar.php";
 
     </div>
 
+    <?php if ($carritoVacio): ?>
+
+        <div class="carrito-vacio">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            <h3>Tu carrito está vacío</h3>
+
+            <p>Agrega productos antes de finalizar la compra.</p>
+
+            <a href="productos.php" class="btn">Ver productos</a>
+
+        </div>
+
+    <?php else: ?>
+
     <form action="guardar_pedido.php" method="POST" class="formulario-compra">
 
         <div class="grupo">
@@ -28,6 +64,7 @@ include "includes/navbar.php";
          <input
         type="text"
         name="nombres"
+        value="<?php echo $datosCliente ? htmlspecialchars($datosCliente['nombres']) : ''; ?>"
         required>
 
        </div>
@@ -39,6 +76,7 @@ include "includes/navbar.php";
        <input
         type="text"
         name="apellidos"
+        value="<?php echo $datosCliente ? htmlspecialchars($datosCliente['apellidos']) : ''; ?>"
         required>
 
         </div>
@@ -50,6 +88,7 @@ include "includes/navbar.php";
             <input
             type="email"
             name="correo"
+            value="<?php echo $datosCliente ? htmlspecialchars($datosCliente['correo']) : ''; ?>"
             required>
 
         </div>
@@ -61,6 +100,7 @@ include "includes/navbar.php";
             <input
             type="text"
             name="telefono"
+            value="<?php echo $datosCliente ? htmlspecialchars($datosCliente['telefono']) : ''; ?>"
             required>
 
         </div>
@@ -72,7 +112,7 @@ include "includes/navbar.php";
             <textarea
             name="direccion"
             rows="4"
-            required></textarea>
+            required><?php echo $datosCliente ? htmlspecialchars($datosCliente['direccion']) : ''; ?></textarea>
 
         </div>
 
@@ -101,6 +141,8 @@ include "includes/navbar.php";
         </button>
 
     </form>
+
+    <?php endif; ?>
 
 </section>
 

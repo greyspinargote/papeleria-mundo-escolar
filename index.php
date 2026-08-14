@@ -239,7 +239,7 @@ include "includes/navbar.php";
 
         <div class="imagen">
 
-            <img src="assets/img/nosotros.jpg" alt="Nosotros">
+            <img src="assets/img/nosotros/imagen.jpg" alt="Nosotros">
 
         </div>
 
