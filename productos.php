@@ -5,7 +5,11 @@ require_once "includes/funciones.php";
 
 $busqueda = isset($_GET['buscar']) ? trim($_GET['buscar']) : "";
 
-$productos = obtenerProductos($conexion, $busqueda);
+$categoria_id = isset($_GET['categoria']) ? (int)$_GET['categoria'] : 0;
+
+$categoriaSeleccionada = $categoria_id > 0 ? obtenerCategoria($conexion, $categoria_id) : null;
+
+$productos = obtenerProductos($conexion, $busqueda, $categoria_id);
 
 include "includes/header.php";
 include "includes/navbar.php";
@@ -16,11 +20,25 @@ include "includes/navbar.php";
 
     <div class="titulo-seccion">
 
-        <h2>Catálogo de Productos</h2>
+        <?php if ($categoriaSeleccionada): ?>
 
-        <p>
-            Encuentra todo lo que necesitas para la escuela, colegio, universidad y oficina.
-        </p>
+            <h2>Categoría: <?php echo htmlspecialchars($categoriaSeleccionada['nombre']); ?></h2>
+
+            <p>
+                <?php echo htmlspecialchars($categoriaSeleccionada['descripcion'] ?? ''); ?>
+                &nbsp;·&nbsp;
+                <a href="productos.php">Ver todo el catálogo</a>
+            </p>
+
+        <?php else: ?>
+
+            <h2>Catálogo de Productos</h2>
+
+            <p>
+                Encuentra todo lo que necesitas para la escuela, colegio, universidad y oficina.
+            </p>
+
+        <?php endif; ?>
 
     </div>
 

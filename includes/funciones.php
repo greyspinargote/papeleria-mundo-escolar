@@ -17,9 +17,24 @@ function obtenerCategorias($conexion)
 
 }
 
+/* OBTENER UNA CATEGORÍA POR ID */
+
+function obtenerCategoria($conexion, $id)
+{
+
+    $id = (int)$id;
+
+    $sql = "SELECT * FROM categorias WHERE id = $id";
+
+    $resultado = mysqli_query($conexion, $sql);
+
+    return mysqli_fetch_assoc($resultado);
+
+}
+
 /* OBTENER PRODUCTOS */
 
-function obtenerProductos($conexion, $busqueda = "")
+function obtenerProductos($conexion, $busqueda = "", $categoria = 0)
 {
 
     $sql = "SELECT *
@@ -30,6 +45,14 @@ function obtenerProductos($conexion, $busqueda = "")
 
         $busqueda = mysqli_real_escape_string($conexion, $busqueda);
         $sql .= " AND nombre LIKE '%$busqueda%'";
+
+    }
+
+    $categoria = (int)$categoria;
+
+    if ($categoria > 0) {
+
+        $sql .= " AND categoria_id = $categoria";
 
     }
 

@@ -37,14 +37,7 @@ include "includes/navbar.php";
 
         <div class="texto-banner">
 
-            <h1>Todo para tu regreso a clases</h1>
-
-            <p>
-
-                Encuentra útiles escolares, material de oficina,
-                mochilas, tecnología y mucho más.
-
-            </p>
+            
 
             <a href="productos.php" class="btn">
 
@@ -78,9 +71,18 @@ include "includes/navbar.php";
 
         <?php while($categoria=mysqli_fetch_assoc($categorias)){ ?>
 
-            <div class="categoria">
+            <a href="productos.php?categoria=<?php echo $categoria['id']; ?>" class="categoria">
 
-                <i class="fa-solid fa-folder-open"></i>
+                <?php if (!empty($categoria['imagen'])): ?>
+
+                    <img src="assets/img/categorias/<?php echo htmlspecialchars($categoria['imagen']); ?>"
+                         alt="<?php echo htmlspecialchars($categoria['nombre']); ?>">
+
+                <?php else: ?>
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                <?php endif; ?>
 
                 <h3>
 
@@ -88,7 +90,7 @@ include "includes/navbar.php";
 
                 </h3>
 
-            </div>
+            </a>
 
         <?php } ?>
 
