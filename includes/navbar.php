@@ -22,14 +22,6 @@ Envíos a todo Ecuador
 
 </div>
 
-<div>
-
-<i class="fa-solid fa-phone"></i>
-
-0982852504
-
-</div>
-
 </div>
 
 <nav class="navbar">

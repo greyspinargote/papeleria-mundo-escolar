@@ -1,90 +1,369 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:#F5F7FA;
-    color:#222;
-}
-
 a{
     text-decoration:none;
 }
 
-/* LOGIN */
+/* =========================================
+   LOGIN - MUNDO ESCOLAR
+   ========================================= */
 
 .login-caja{
-    max-width:380px;
-    margin:100px auto;
-    background:white;
-    padding:40px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    width:100%;
+    max-width:520px;
+
+    margin:80px auto;
+
+    background:#ffffff;
+
+    padding:45px 50px 30px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+
     text-align:center;
 }
 
 .login-caja h2{
     color:#0A4DA3;
-    margin-bottom:5px;
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:8px;
 }
 
-.login-caja p{
+.login-caja .login-marca{
     color:#666;
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.login-caja .login-subtitulo{
+    color:#777;
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:28px;
+}
+
+
+/* =========================================
+   MENSAJE DE ERROR
+   ========================================= */
+
+.mensaje-error{
+    background:#f8d7da;
+
+    color:#721c24;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    text-align:left;
+
+    font-size:14px;
+}
+
+
+/* =========================================
+   CAMPOS DEL LOGIN
+   ========================================= */
+
+.login-caja .campo{
+    margin-bottom:20px;
+
+    text-align:left;
+}
+
+.login-caja .campo label{
+    display:block;
+    text-align:left;
+    font-weight:700;
+    color:#333;
+    margin-bottom:7px;
+    margin-top:0;
+}
+
+
+/* =========================================
+   INPUT USUARIO
+   ========================================= */
+
+.login-caja .campo > input{
+    width:100%;
+
+    height:52px;
+
+    padding:12px 14px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.login-caja .campo > input:focus{
+    border-color:#0A4DA3;
+
+    box-shadow:0 0 0 3px rgba(10,77,163,.10);
+}
+
+
+/* =========================================
+   CAMPO CONTRASEÑA
+   ========================================= */
+
+.password-contenedor{
+    position:relative;
+
+    width:100%;
+}
+
+.password-contenedor input{
+    width:100%;
+
+    height:52px;
+
+    padding:12px 90px 12px 14px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.password-contenedor input:focus{
+    border-color:#0A4DA3;
+
+    box-shadow:0 0 0 3px rgba(10,77,163,.10);
+}
+
+
+/* =========================================
+   BOTÓN MOSTRAR
+   ========================================= */
+
+.password-contenedor .mostrar-password{
+
+    position:absolute;
+
+    right:8px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:auto;
+
+    margin:0;
+
+    padding:7px 10px;
+
+    border:none;
+
+    background:transparent;
+
+    color:#0A4DA3;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.password-contenedor .mostrar-password:hover{
+
+    background:transparent;
+
+    color:#083B7A;
+
+    transform:translateY(-50%);
+}
+
+
+/* =========================================
+   RECORDARME + OLVIDASTE CONTRASEÑA
+   ========================================= */
+
+.login-opciones{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:5px;
+
     margin-bottom:25px;
 }
 
-.login-caja label{
-    display:block;
-    text-align:left;
+
+/* RECORDARME */
+
+.login-opciones .recordar{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:7px;
+    margin:0;
+    padding:0;
+    color:#333;
+    font-size:14px;
     font-weight:600;
-    margin-bottom:6px;
-    margin-top:15px;
+    cursor:pointer;
+    white-space:nowrap;
 }
 
-.login-caja input{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
+.login-opciones .recordar input[type="checkbox"]{
+
+    width:16px;
+
+    height:16px;
+
+    margin:0;
+
+    padding:0;
+
+    cursor:pointer;
+
+    accent-color:#0A4DA3;
 }
 
-.login-caja button{
+.login-opciones .recordar span{
+
+    display:inline;
+}
+
+
+/* =========================================
+   OLVIDASTE CONTRASEÑA
+   ========================================= */
+
+.login-opciones a{
+    display:inline-block;
+    color:#0A4DA3;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.login-opciones a:hover{
+
+    color:#083B7A;
+
+    text-decoration:underline;
+}
+
+
+/* =========================================
+   BOTÓN INGRESAR
+   ========================================= */
+
+.login-caja .btn-ingresar{
     width:100%;
-    margin-top:25px;
+    height:52px;
+    margin-top:0;
     padding:14px;
     border:none;
     background:#0A4DA3;
     color:white;
     border-radius:8px;
     font-size:16px;
-    font-weight:600;
+    font-weight:700;
     cursor:pointer;
+    transition:.2s;
 }
 
-.login-caja button:hover{
+.login-caja .btn-ingresar:hover{
+
     background:#083B7A;
+
+    transform:translateY(-1px);
 }
 
-.mensaje-error{
-    background:#f8d7da;
-    color:#721c24;
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:10px;
+
+/* =========================================
+   PIE DEL LOGIN
+   ========================================= */
+
+.login-footer{
+
+    margin-top:20px;
+
+    color:#777;
+
+    font-size:13px;
 }
+
+
+/* =========================================
+   MENSAJE DE ÉXITO
+   ========================================= */
 
 .mensaje-exito{
+
     background:#d4edda;
+
     color:#155724;
+
     padding:14px;
+
     border-radius:8px;
+
     margin-bottom:20px;
 }
 
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width:600px){
+
+    .login-caja{
+
+        max-width:100%;
+
+        margin:30px auto;
+
+        padding:35px 25px 25px;
+    }
+
+    .login-caja h2{
+
+        font-size:26px;
+    }
+
+    .login-opciones{
+
+        flex-direction:row;
+
+        align-items:center;
+
+    }
+
+    .login-opciones a{
+
+        font-size:13px;
+    }
+
+}
 /* LAYOUT DEL PANEL */
 
 .layout-panel{
@@ -100,6 +379,13 @@ a{
     color:white;
     flex-shrink:0;
     padding:25px 0;
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
 }
 
 .marca-sidebar{
@@ -120,7 +406,9 @@ a{
 
 .sidebar nav a{
     color:rgba(255,255,255,.85);
-    padding:14px 25px;
+    padding:14px 20px;
+    margin:2px 15px;
+    border-radius:12px;
     display:flex;
     align-items:center;
     gap:12px;
@@ -129,19 +417,20 @@ a{
 }
 
 .sidebar nav a:hover{
-    background:rgba(255,255,255,.08);
+    background:rgba(255,255,255,.18);
     color:white;
+    transform:translateX(4px);
 }
 
 .sidebar nav a.activo{
-    background:rgba(255,255,255,.15);
+    background:rgba(255,255,255,.22);
     color:white;
     font-weight:600;
-    border-right:4px solid #FFC107;
+    border-right:none;
 }
 
 .sidebar nav a.cerrar-sesion{
-    margin-top:20px;
+    margin-top:auto;
     border-top:1px solid rgba(255,255,255,.15);
     padding-top:20px;
     color:#ffb3b3;
@@ -151,9 +440,9 @@ a{
 
 .contenido-panel{
     flex:1;
+    margin-left:260px;
     padding:35px 40px;
 }
-
 .encabezado-panel{
     display:flex;
     justify-content:space-between;
@@ -217,9 +506,9 @@ a{
     color:white;
 }
 
-.tarjeta-resumen .icono.azul{ background:#0A4DA3; }
-.tarjeta-resumen .icono.verde{ background:#28A745; }
-.tarjeta-resumen .icono.amarillo{ background:#FFC107; color:#222; }
+.tarjeta-resumen .icono.azul{ background:#051761; }
+.tarjeta-resumen .icono.verde{ background:#3fa728; }
+.tarjeta-resumen .icono.amarillo{ background:#ba8f0e; color:#222; }
 .tarjeta-resumen .icono.rojo{ background:#dc3545; }
 
 .tarjeta-resumen .numero{
@@ -276,7 +565,7 @@ a{
 }
 
 .tarjeta-panel h2{
-    color:#0A4DA3;
+    color:#053f8b;
     margin-bottom:20px;
 }
 
@@ -329,4 +618,268 @@ a{
     padding:18px;
     border-radius:10px;
     margin-bottom:25px;
+}
+
+/* =========================================
+   DASHBOARD - GRID DE DOS COLUMNAS
+   ========================================= */
+
+.panel-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+    margin-bottom:30px;
+    align-items:start;
+}
+
+.tarjeta-panel.sin-margen{
+    margin-bottom:0;
+}
+
+.tarjeta-panel-encabezado{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.tarjeta-panel-encabezado h2{
+    margin-bottom:0;
+}
+
+.etiqueta-mini{
+    background:#e8f0fb;
+    color:#0A4DA3;
+    padding:5px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.etiqueta-mini.enlace{
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.etiqueta-mini.enlace:hover{
+    background:#d3e2f7;
+}
+
+
+/* =========================================
+   COLUMNA LATERAL
+   ========================================= */
+
+.panel-columna-lateral{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+
+/* =========================================
+   SISTEMA ACTIVO
+   ========================================= */
+
+.sistema-activo{
+    background:linear-gradient(135deg,#28A745,#1e7d34);
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.sistema-activo h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.sistema-activo p{
+    font-size:14px;
+    line-height:1.5;
+    color:rgba(255,255,255,.92);
+}
+
+
+/* =========================================
+   ACCESOS RAPIDOS
+   ========================================= */
+
+.accesos-rapidos{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.acceso-rapido{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    background:#f5f8fc;
+    border-radius:10px;
+    color:#0A4DA3;
+    font-weight:700;
+    font-size:14px;
+    transition:.2s;
+}
+
+.acceso-rapido:hover{
+    background:#0A4DA3;
+    color:white;
+}
+
+.acceso-rapido i{
+    font-size:13px;
+}
+
+
+/* =========================================
+   BADGE DE ESTADO (ventas / stock)
+   ========================================= */
+
+.badge-estado{
+    display:inline-block;
+    padding:5px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.badge-estado.completada{
+    background:#d4edda;
+    color:#155724;
+}
+
+.badge-estado.pendiente{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+
+/* =========================================
+   RESPONSIVE DASHBOARD
+   ========================================= */
+
+@media (max-width:900px){
+
+    .panel-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+/* =========================================
+   ENCABEZADO NUEVO ESTILO
+   ========================================= */
+
+.encabezado-panel h1{
+    font-size:32px;
+    font-weight:800;
+    color:#073d84;
+    margin-bottom:6px;
+}
+
+.subtitulo-panel{
+    color:#5a6b85;
+    font-size:15px;
+}
+
+.usuario-actual{
+    gap:12px;
+}
+
+.avatar-usuario{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#28A745;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:16px;
+    flex-shrink:0;
+}
+
+.datos-usuario{
+    text-align:left;
+    line-height:1.3;
+}
+
+.nombre-usuario{
+    font-weight:700;
+    font-size:14px;
+    color:#222;
+}
+
+.rol-usuario{
+    font-size:13px;
+    font-weight:600;
+    color:#28A745;
+    text-transform:capitalize;
+}
+
+
+/* =========================================
+   TARJETAS RESUMEN - ESTILO NUEVO
+   ========================================= */
+
+.tarjeta-resumen{
+    position:relative;
+    flex-direction:column;
+    align-items:flex-start;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.tarjeta-resumen:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+.blob-decorativo{
+    position:absolute;
+    top:-20px;
+    right:-20px;
+    width:70px;
+    height:70px;
+    background:rgba(10,77,163,.12);
+    border-radius:50%;
+}
+
+.icono-emoji{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    margin-bottom:14px;
+    background:#eef3fb;
+    position:relative;
+    z-index:1;
+}
+
+.icono-emoji.azul{ background:#c3cff5; }
+.icono-emoji.verde{ background:#e5f7ea; }
+.icono-emoji.amarillo{ background:#f1ebc8; }
+.icono-emoji.rojo{ background:#fdeaea; }
+
+.tarjeta-resumen .etiqueta{
+    font-weight:700;
+    color:#222;
+    font-size:15px;
+    margin-top:2px;
+}
+
+.tarjeta-resumen .detalle-tarjeta{
+    color:#8a94a6;
+    font-size:13px;
+    margin-top:4px;
 }

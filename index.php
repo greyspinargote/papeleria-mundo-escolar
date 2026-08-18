@@ -13,36 +13,18 @@ include "includes/navbar.php";
 
 <!-- SLIDER -->
 
+<!-- SLIDER -->
+
 <section class="banner">
 
     <div class="slider">
 
         <div class="slide active">
 
-            <img src="assets/img/banner1.jpg" alt="banner1">
+            <img src="assets/img/banner1.jpg" alt="Mundo Escolar">
 
-        </div>
-
-        <div class="slide">
-
-            <img src="assets/img/banner2.jpg" alt="banner2">
-
-        </div>
-
-        <div class="slide">
-
-            <img src="assets/img/banner3.jpg" alt="banner3">
-
-        </div>
-
-        <div class="texto-banner">
-
-            
-
-            <a href="productos.php" class="btn">
-
+            <a href="productos.php" class="btn-banner">
                 Comprar ahora
-
             </a>
 
         </div>
