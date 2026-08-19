@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_producto'])) 
 
         } elseif ($_FILES['imagen']['size'] > 3 * 1024 * 1024) {
 
-            $error = "La imagen no puede pesar más de 3MB.";
+            $error = "La imagen no puede pasar más de 3MB.";
 
         } else {
 
@@ -80,33 +80,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_producto'])) 
 
 }
 
-/* ELIMINAR PRODUCTO */
+/* ELIMINAR PRODUCTO (SOLO ADMINISTRADOR / ADMIN) */
 
 if (isset($_GET['eliminar'])) {
 
-    $id = (int)$_GET['eliminar'];
+    $rol = strtolower(trim($_SESSION['usuario_rol'] ?? ''));
 
-    $resultado = obtenerProducto($conexion, $id);
-    $producto  = mysqli_fetch_assoc($resultado);
+    if ($rol !== 'administrador' && $rol !== 'admin') {
 
-    if ($producto) {
+        $error = "No tienes permisos para eliminar productos.";
 
-        $rutaImagen = "../assets/img/productos/" . $producto['imagen'];
+    } else {
 
-        if (!empty($producto['imagen']) && file_exists($rutaImagen)) {
-            unlink($rutaImagen);
+        $id = (int)$_GET['eliminar'];
+
+        $resultado = obtenerProducto($conexion, $id);
+        $producto  = mysqli_fetch_assoc($resultado);
+
+        if ($producto) {
+
+            $rutaImagen = "../assets/img/productos/" . $producto['imagen'];
+
+            if (!empty($producto['imagen']) && file_exists($rutaImagen)) {
+                unlink($rutaImagen);
+            }
+
+            mysqli_query($conexion, "DELETE FROM productos WHERE id = $id");
+
+            $mensaje = "Producto eliminado.";
+
         }
-
-        mysqli_query($conexion, "DELETE FROM productos WHERE id = $id");
-
-        $mensaje = "Producto eliminado.";
 
     }
 
 }
 
 $categorias = obtenerCategorias($conexion);
-$productos  = obtenerProductos($conexion);
+
+/* BÚSQUEDA DE PRODUCTOS */
+$buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
+
+if (!empty($buscar)) {
+    $buscarEsc = mysqli_real_escape_string($conexion, $buscar);
+    $query = "SELECT * FROM productos WHERE nombre LIKE '%$buscarEsc%' OR id = '$buscarEsc' ORDER BY id DESC";
+    $productos = mysqli_query($conexion, $query);
+} else {
+    $productos = obtenerProductos($conexion);
+}
+
+$inicialUsuario = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr($_SESSION['usuario_nombres'], 0, 1)) : 'G';
 
 ?>
 <!DOCTYPE html>
@@ -127,12 +149,17 @@ $productos  = obtenerProductos($conexion);
 
         <div class="encabezado-panel">
 
-            <h1>Productos</h1>
+            <div class="titulos-header">
+                <h1>Productos</h1>
+                <p class="subtitulo-header">Gestión de productos Mundo Escolar 👋</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="tarjeta-usuario-header">
+                <div class="avatar-inicial"><?php echo $inicialUsuario; ?></div>
+                <div class="info-usuario-header">
+                    <span class="nombre-user"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-user"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+                </div>
             </div>
 
         </div>
@@ -188,17 +215,31 @@ $productos  = obtenerProductos($conexion);
                     <input type="file" name="imagen" accept=".jpg,.jpeg,.png,.webp" required>
                 </div>
 
-                <div class="campo" style="display:flex; align-items:center; gap:10px;">
-                    <input type="checkbox" name="destacado" id="destacado" style="width:auto;">
-                    <label for="destacado" style="margin:0;">Mostrar en Productos Destacados (inicio)</label>
+                <div class="campo campo-checkbox">
+                    <input type="checkbox" name="destacado" id="destacado">
+                    <label for="destacado">Mostrar en Productos Destacados (inicio)</label>
                 </div>
 
-                <button type="submit" name="guardar_producto" class="btn-panel">
+                <button type="submit" name="guardar_producto" class="btn-agregar-verde">
                     <i class="fa-solid fa-plus"></i> Agregar producto
                 </button>
 
             </form>
 
+        </div>
+
+        <div class="tarjeta-panel">
+            <h2>Lista de productos</h2>
+            <form method="GET" action="productos.php" class="form-busqueda-producto">
+                <input 
+                    type="text" 
+                    name="buscar" 
+                    placeholder="Buscar por nombre o código" 
+                    value="<?php echo htmlspecialchars($buscar); ?>"
+                    class="input-busqueda-producto"
+                >
+                <button type="submit" class="btn-buscar-producto">Buscar</button>
+            </form>
         </div>
 
         <div class="tarjeta-panel">
@@ -216,29 +257,36 @@ $productos  = obtenerProductos($conexion);
                     <th>Acciones</th>
                 </tr>
 
-                <?php while ($p = mysqli_fetch_assoc($productos)) { ?>
+                <?php if (mysqli_num_rows($productos) > 0): ?>
+                    <?php while ($p = mysqli_fetch_assoc($productos)) { ?>
 
+                        <tr>
+                            <td>
+                                <img src="../assets/img/productos/<?php echo htmlspecialchars($p['imagen']); ?>" alt="">
+                            </td>
+                            <td><?php echo htmlspecialchars($p['nombre']); ?></td>
+                            <td><?php echo moneda($p['precio']); ?></td>
+                            <td><?php echo $p['stock']; ?></td>
+                            <td><?php echo $p['destacado'] ? 'Sí' : 'No'; ?></td>
+                            <td class="acciones-tabla">
+                                <?php 
+                                $rol = strtolower(trim($_SESSION['usuario_rol'] ?? ''));
+                                if ($rol === 'administrador' || $rol === 'admin'): 
+                                ?>
+                                    <a href="editar_producto.php?id=<?php echo $p['id']; ?>" class="btn-editar">Editar</a>
+                                    <a href="productos.php?eliminar=<?php echo $p['id']; ?>" class="btn-eliminar" onclick="return confirm('¿Eliminar este producto?');">Eliminar</a>
+                                <?php else: ?>
+                                    <span class="sin-permisos">Sin permisos</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+
+                    <?php } ?>
+                <?php else: ?>
                     <tr>
-                        <td>
-                            <img src="../assets/img/productos/<?php echo htmlspecialchars($p['imagen']); ?>" alt="">
-                        </td>
-                        <td><?php echo htmlspecialchars($p['nombre']); ?></td>
-                        <td><?php echo moneda($p['precio']); ?></td>
-                        <td><?php echo $p['stock']; ?></td>
-                        <td><?php echo $p['destacado'] ? 'Sí' : 'No'; ?></td>
-                        <td>
-                            <a href="editar_producto.php?id=<?php echo $p['id']; ?>" style="color:#0A4DA3; font-weight:600; margin-right:12px;">
-                                Editar
-                            </a>
-                            <a href="productos.php?eliminar=<?php echo $p['id']; ?>"
-                               style="color:#dc3545; font-weight:600;"
-                               onclick="return confirm('¿Eliminar este producto? Esta acción no se puede deshacer.');">
-                                Eliminar
-                            </a>
-                        </td>
+                        <td colspan="6">No se encontraron productos.</td>
                     </tr>
-
-                <?php } ?>
+                <?php endif; ?>
 
             </table>
 
@@ -248,5 +296,5 @@ $productos  = obtenerProductos($conexion);
 
 </div>
 
-</body>
+</body>  
 </html>

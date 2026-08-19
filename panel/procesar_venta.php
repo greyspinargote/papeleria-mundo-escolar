@@ -1,80 +1,78 @@
 <?php
-
 require "proteger.php";
 require_once "../includes/conexion.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-
     header("Location: ventas.php");
     exit;
-
 }
 
-$cliente_id   = !empty($_POST['cliente_id']) ? (int)$_POST['cliente_id'] : null;
-$carritoJson  = $_POST['carrito_json'] ?? '[]';
-$carrito      = json_decode($carritoJson, true);
+$cliente_id  = !empty($_POST['cliente_id']) ? (int)$_POST['cliente_id'] : "NULL";
+$usuario_id  = isset($_SESSION['usuario_id']) ? (int)$_SESSION['usuario_id'] : "NULL";
+$carritoJson = isset($_POST['carrito_json']) ? $_POST['carrito_json'] : '';
 
-if (!is_array($carrito) || count($carrito) === 0) {
+$carrito = json_decode($carritoJson, true);
 
+if (empty($carrito) || !is_array($carrito)) {
     header("Location: ventas.php?error=1");
     exit;
-
 }
 
-/* Verificamos stock disponible de cada producto antes de procesar */
-
+/* Calcular Totales */
+$subtotal = 0;
 foreach ($carrito as $item) {
+    $subtotal += ($item['precio'] * $item['cantidad']);
+}
 
-    $producto_id = (int)$item['id'];
-    $cantidad    = (int)$item['cantidad'];
+$iva   = $subtotal * 0.15;
+$total = $subtotal + $iva;
 
-    $resultado = mysqli_query($conexion, "SELECT stock FROM productos WHERE id = $producto_id");
-    $producto  = mysqli_fetch_assoc($resultado);
+/* Iniciar Transacción en BD */
+mysqli_begin_transaction($conexion);
 
-    if (!$producto || $producto['stock'] < $cantidad) {
-
-        header("Location: ventas.php?error=1");
-        exit;
-
+try {
+    /* 1. Insertar venta principal */
+    $queryVenta = "INSERT INTO ventas (cliente_id, usuario_id, subtotal, iva, total, fecha) 
+                   VALUES ($cliente_id, $usuario_id, $subtotal, $iva, $total, NOW())";
+    
+    if (!mysqli_query($conexion, $queryVenta)) {
+        throw new Exception("Error al insertar la venta.");
     }
 
+    $venta_id = mysqli_insert_id($conexion);
+
+    /* 2. Insertar detalle de venta y actualizar stock */
+    foreach ($carrito as $item) {
+        $p_id     = (int)$item['id'];
+        $cant     = (int)$item['cantidad'];
+        $precio   = (float)$item['precio'];
+        $itemSub  = $precio * $cant;
+
+        $queryDetalle = "INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, precio_unitario, subtotal)
+                         VALUES ($venta_id, $p_id, $cant, $precio, $itemSub)";
+        
+        if (!mysqli_query($conexion, $queryDetalle)) {
+            throw new Exception("Error al insertar el detalle.");
+        }
+
+        /* Descontar Stock */
+        $queryStock = "UPDATE productos SET stock = stock - $cant WHERE id = $p_id AND stock >= $cant";
+        mysqli_query($conexion, $queryStock);
+
+        if (mysqli_affected_rows($conexion) === 0) {
+            throw new Exception("Stock insuficiente.");
+        }
+    }
+
+    /* Confirmar Cambios */
+    mysqli_commit($conexion);
+
+    /* Redirigir a ventas.php enviando el ID de éxito */
+    header("Location: ventas.php?exito=" . $venta_id);
+    exit;
+
+} catch (Exception $e) {
+    mysqli_rollback($conexion);
+    header("Location: ventas.php?error=1");
+    exit;
 }
-
-/* Calculamos el total */
-
-$total = 0;
-
-foreach ($carrito as $item) {
-    $total += (float)$item['precio'] * (int)$item['cantidad'];
-}
-
-/* Creamos el pedido (venta en tienda) */
-
-$clienteSQL = $cliente_id !== null ? $cliente_id : "NULL";
-
-mysqli_query($conexion, "INSERT INTO pedidos (cliente_id, fecha, total, estado, origen)
-    VALUES ($clienteSQL, NOW(), $total, 'Completado', 'tienda')");
-
-$pedido_id = mysqli_insert_id($conexion);
-
-/* Guardamos cada producto y descontamos el stock */
-
-foreach ($carrito as $item) {
-
-    $producto_id = (int)$item['id'];
-    $cantidad    = (int)$item['cantidad'];
-    $precio      = (float)$item['precio'];
-    $subtotal    = $precio * $cantidad;
-
-    mysqli_query($conexion, "INSERT INTO detalle_pedido (pedido_id, producto_id, cantidad, precio, subtotal)
-        VALUES ($pedido_id, $producto_id, $cantidad, $precio, $subtotal)");
-
-    mysqli_query($conexion, "UPDATE productos SET stock = stock - $cantidad WHERE id = $producto_id");
-
-    mysqli_query($conexion, "INSERT INTO movimientos_inventario (producto_id, tipo, cantidad, motivo, usuario_id)
-        VALUES ($producto_id, 'salida', $cantidad, 'Venta #$pedido_id (mostrador)', " . (int)$_SESSION['usuario_id'] . ")");
-
-}
-
-header("Location: ventas.php?exito=$pedido_id");
-exit;

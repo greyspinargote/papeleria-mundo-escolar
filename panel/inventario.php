@@ -83,14 +83,25 @@ $productosSelect = mysqli_query($conexion, "SELECT id, nombre, stock FROM produc
 
     <div class="contenido-panel">
 
+        <!-- Encabezado con el nuevo diseño unificado -->
         <div class="encabezado-panel">
 
-            <h1>Inventario</h1>
+            <div class="header-info">
+                <h1>Inventario</h1>
+                <p class="subtitulo-panel">Gestión de inventario Mundo Escolar 👋</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="usuario-tarjeta">
+                <div class="avatar-inicial">
+                    <?php 
+                        $inicial = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr(trim($_SESSION['usuario_nombres']), 0, 1)) : 'U';
+                        echo htmlspecialchars($inicial);
+                    ?>
+                </div>
+                <div class="datos-usuario">
+                    <span class="nombre-usuario"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-usuario"><?php echo htmlspecialchars(ucfirst($_SESSION['usuario_rol'])); ?></span>
+                </div>
             </div>
 
         </div>

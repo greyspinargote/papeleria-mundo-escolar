@@ -883,3 +883,1204 @@ a{
     font-size:13px;
     margin-top:4px;
 }
+/* Encabezado Principal */
+.encabezado-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+/* Títulos más grandes */
+.titulos-header h1 {
+  font-size: 2.3rem; /* Aumentado */
+  color: #0f3d64;
+  margin: 0;
+  font-weight: 700;
+}
+
+.subtitulo-header {
+  font-size: 1rem; /* Aumentado */
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* Badge de usuario más amplio */
+.tarjeta-usuario-header {
+  background: #ffffff;
+  padding: 8px 22px 8px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.avatar-inicial {
+  width: 46px; /* Círculo más grande */
+  height: 46px;
+  background-color: #15803d;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem; /* Inicial más grande */
+}
+
+.info-usuario-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.nombre-user {
+  font-size: 0.98rem; /* Aumentado */
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rol-user {
+  font-size: 0.82rem; /* Aumentado */
+  color: #15803d;
+  font-weight: 600;
+  text-transform: capitalize; /* Garantiza la A mayúscula */
+}
+/* ==========================================
+   FORMULARIO DESPLEGABLE (NUEVO CLIENTE)
+   ========================================== */
+
+.contenedor-form-desplegable {
+    display: none;
+    background: #f8fafc;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.titulo-form-cliente {
+    margin-top: 0;
+    color: #0f3d64;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.grid-formulario {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px 0;
+    width: 100%;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: calc(50% - 15px); /* Separa Nombres, Apellidos, Correo y Teléfono */
+    box-sizing: border-box;
+}
+
+.campo-grupo.completo {
+    width: 100%; /* La Dirección toma el ancho completo del formulario */
+}
+
+.campo-grupo label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.campo-grupo input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo-grupo input:focus {
+    border-color: #0f3d64;
+    box-shadow: 0 0 0 3px rgba(15, 61, 100, 0.1);
+}
+
+.acciones-form {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+}
+
+.btn-cancelar {
+    background-color: #cbd5e1;
+    color: #334155;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #94a3b8;
+}
+/* --- ESTILOS DE BÚSQUEDA DE PRODUCTOS / CLIENTES --- */
+.form-busqueda-producto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-busqueda-producto {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    width: 300px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-busqueda-producto:focus {
+    border-color: #0f3d64;
+    box-shadow: 0 0 0 3px rgba(15, 61, 100, 0.1);
+}
+
+.btn-buscar-producto {
+    background-color: #1e5385;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-buscar-producto:hover {
+    background-color: #1e5385;
+}
+
+.btn-limpiar-busqueda {
+    background-color: #ef4444;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-limpiar-busqueda:hover {
+    background-color: #dc2626;
+}
+/* --- BOTONES CON COLOR AZUL CORPORATIVO Y VERDE --- */
+.btn-agregar-verde {
+    background-color: #1e5385 !important; /* Azul corporativo para la acción principal */
+    color: #ffffff !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.btn-agregar-verde:hover {
+    background-color: #1e5385 !important;
+}
+.btn-cancelar {
+    background-color: #cbd5e1 !important;
+    color: #1e5385 !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+.btn-cancelar:hover {
+    background-color: #94a3b8 !important;   
+}
+/* ===================================================
+   MÓDULO DE VENTAS: DATOS DEL CLIENTE, TOTALES Y TICKET
+   =================================================== */
+
+/* Layout en grid para colocar cliente y totales lado a lado */
+.grid-resumen-venta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Tarjetas/Contenedores */
+.tarjeta-resumen-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.titulo-box {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #0f3d64;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Fila del selector de cliente y botón "Nuevo cliente" */
+.fila-cliente-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.fila-cliente-selector select.input-estandar {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.fila-cliente-selector select.input-estandar:focus {
+    border-color: #6ee7b7;
+}
+
+/* Botones con tono verde Mint */
+.btn-secundario-verde {
+    background-color: #6ee7b7;
+    color: #065f46;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.btn-secundario-verde:hover {
+    background-color: #34d399;
+}
+
+.btn-guardar-verde, .btn-agregar-verde {
+    background-color: #6ee7b7 !important;
+    color: #065f46 !important;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-guardar-verde:hover, .btn-agregar-verde:hover {
+    background-color: #34d399 !important;
+}
+
+.btn-guardar-verde:disabled {
+    background-color: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    cursor: not-allowed;
+}
+
+/* Botón Cancelar */
+.acciones-finalizar {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-cancelar {
+    background-color: #e0e7ff;
+    color: #3b82f6;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #c7d2fe;
+}
+
+/* Sección derecha: Desglose de Totales y Pago */
+.linea-resumen {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.divisor-totales {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 12px 0;
+}
+
+.total-destacado {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f3d64;
+}
+
+/* Alerta verde de confirmación con botón Imprimir */
+.alerta-exito-comprobante {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #a7f3d0;
+}
+
+.btn-imprimir {
+    background-color: #6ee7b7;
+    color: #065f46;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-imprimir:hover {
+    background-color: #34d399;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .grid-resumen-venta {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===================================================
+   ESTILOS PARA LA MODAL DE REGISTRO RÁPIDO DE CLIENTE
+   =================================================== */
+
+/* Oculta la modal por defecto */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); /* Fondo oscuro semitransparente */
+    display: none; /* Inicia oculta */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+}
+
+/* Muestra la modal cuando JavaScript le añade la clase 'modal-activo' */
+.modal-backdrop.modal-activo {
+    display: flex !important;
+}
+
+/* Caja/Contenedor interior de la modal */
+.modal-contenido {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f3d64;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-cerrar-modal {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #64748b;
+    line-height: 1;
+    padding: 0;
+}
+
+.btn-cerrar-modal:hover {
+    color: #ef4444;
+}
+
+.campo-modal {
+    margin-bottom: 14px;
+}
+
+.campo-modal label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #334155;
+}
+
+.campo-modal .input-estandar {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.campo-modal .input-estandar:focus {
+    border-color: #6ee7b7;
+}
+
+.modal-acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+/* BOTONES PRINCIPALES EN AZUL */
+.btn-guardar-verde,
+.btn-agregar-verde,
+.btn-secundario-verde,
+.btn-imprimir {
+    background-color: #0d529c !important; /* Azul primario del panel */
+    color: #ffffff !important;
+    border: none !important;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+}
+
+/* EFECTO HOVER EN AZUL MÁS OSCURO */
+.btn-guardar-verde:hover,
+.btn-agregar-verde:hover,
+.btn-secundario-verde:hover,
+.btn-imprimir:hover {
+    background-color: #0a3d75 !important;
+    color: #ffffff !important;
+}
+
+/* ESTADO DESHABILITADO PARA FINALIZAR VENTA */
+.btn-guardar-verde:disabled {
+    background-color: #94a3b8 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+/* --- FORZAR ALINEACIÓN EN UNA SOLA FILA PARA EL BUSCADOR --- */
+
+.fila-buscador {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-bottom: 12px;
+}
+
+/* Evita que el input ocupe todo el ancho vertical u obligue a dar salto de línea */
+.fila-buscador input.input-expandir {
+    display: inline-block !important;
+    flex: 1 !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+/* Mantiene los botones alineados a la derecha del input */
+.fila-buscador button {
+    display: inline-flex !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+
+/* Alineación para la fila de cantidad y botón agregar */
+.fila-cantidad {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 12px;
+}
+
+.fila-cantidad input {
+    width: 100px !important;
+    margin: 0 !important;
+}
+/* FIX FINALIZAR VENTA Y BOTONES DESHABILITADOS */
+button:disabled,
+.btn-guardar-verde:disabled,
+#btnConfirmarVenta:disabled {
+    background-color: #d1d5db !important;
+    color: #374151 !important; /* Texto gris oscuro visible */
+    border: 1px solid #9ca3af !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+#btnConfirmarVenta:not(:disabled) {
+    background-color: #107c41 !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+}
+/* Contenedor flexible para el encabezado */
+.encabezado-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Título y subtítulo */
+.header-info h1 {
+    font-size: 2.2rem;
+    color: #0d3b66; /* Ajusta al tono de azul de tu app */
+    margin: 0;
+    font-family: serif; /* O la tipografía de tu interfaz */
+}
+
+.subtitulo-panel {
+    color: #555555;
+    font-size: 0.95rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* Tarjeta redondeada de usuario */
+.usuario-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    padding: 8px 20px 8px 10px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Avatar verde con la inicial */
+.avatar-inicial {
+    width: 45px;
+    height: 45px;
+    background-color: #198754; /* Verde similar al de la imagen */
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Texto del nombre y rol */
+.datos-usuario {
+    display: flex;
+    flex-direction: column;
+}
+
+.nombre-usuario {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #212529;
+    line-height: 1.2;
+}
+
+.rol-usuario {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+/* Formulario y Distribución de Filtros */
+.form-filtros-reporte {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.grupo-filtros {
+    display: flex;
+    gap: 15px; /* Separa los inputs entre sí */
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.grupo-filtros .campo {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Fuerza espacio entre las cajas de texto / fecha / select */
+.grupo-filtros input[type="date"],
+.grupo-filtros select {
+    margin-right: 10px;
+}
+
+.acciones-exportar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Colores de los botones */
+.btn-csv {
+    background-color: #17a2b8 !important; /* Turquesa CSV */
+    color: #ffffff !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn-csv:hover {
+    background-color: #138496 !important;
+}
+
+.btn-pdf {
+    background-color: #dc3545 !important; /* Rojo Imprimir / PDF */
+    color: #ffffff !important;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 6px;
+}
+
+.btn-pdf:hover {
+    background-color: #234cc8 !important;
+}
+
+/* Formulario y Distribución de Filtros */
+.form-filtros-reporte {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Contenedor de filtros con separación de campos */
+.grupo-filtros {
+    display: flex;
+    gap: 15px; /* Separa los bloques entre sí */
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.grupo-filtros .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Separación entre el label y el input/select */
+    margin: 0;
+}
+
+/* Estilo para los inputs de fecha y select para que no se peguen */
+.grupo-filtros input[type="date"],
+.grupo-filtros select {
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.acciones-exportar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* UNIFICACIÓN DE TODOS LOS BOTONES AL AZUL DE TU IMAGEN (#0a4da3) */
+
+/* Botón Filtrar */
+.grupo-filtros .btn-panel {
+    background-color: #0a4da3 !important;
+    color: #ffffff !important;
+    border: none;
+    cursor: pointer;
+    padding: 9px 18px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.grupo-filtros .btn-panel:hover {
+    background-color: #083e85 !important;
+}
+
+/* Botón Exportar CSV */
+.btn-csv {
+    background-color: #0a4da3 !important;
+    color: #ffffff !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+}
+
+.btn-csv:hover {
+    background-color: #083e85 !important;
+}
+
+/* Botón Imprimir / PDF */
+.btn-pdf {
+    background-color: #0a4da3 !important;
+    color: #ffffff !important;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-pdf:hover {
+    background-color: #083e85 !important;
+}
+
+/* Impresión */
+@media print {
+    aside,
+    .menu-lateral,
+    .sidebar,
+    .form-filtros-reporte,
+    .btn-panel,
+    .btn-csv,
+    .btn-pdf,
+    .usuario-tarjeta {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .layout-panel,
+    .contenido-panel {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .tarjeta-panel {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        margin-bottom: 20px !important;
+        padding: 15px !important;
+        page-break-inside: avoid;
+    }
+}
+/* --- ENCABEZADO UNIFICADO --- */
+.encabezado-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #0a4da3;
+}
+
+.subtitulo-panel {
+    margin: 4px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.usuario-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 6px 14px;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.avatar-inicial {
+    width: 36px;
+    height: 36px;
+    background-color: #198754;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.datos-usuario {
+    display: flex;
+    flex-direction: column;
+}
+
+.nombre-usuario {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.rol-usuario {
+    font-size: 12px;
+    color: #777;
+}
+
+/* --- FILTROS Y FORMULARIOS --- */
+.form-filtros-reporte {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.grupo-filtros {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.grupo-filtros .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+}
+
+.campo-busqueda {
+    flex: 1;
+    min-width: 220px;
+}
+
+.grupo-filtros input[type="text"],
+.grupo-filtros input[type="date"],
+.grupo-filtros select {
+    padding: 9px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.acciones-exportar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* --- BOTONES Y ACCIONES --- */
+.btn-panel,
+.btn-limpiar,
+.btn-csv,
+.btn-pdf {
+    background-color: #0a4da3 !important;
+    color: #ffffff !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 10px 18px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease;
+}
+
+.btn-panel:hover,
+.btn-limpiar:hover,
+.btn-csv:hover,
+.btn-pdf:hover {
+    background-color: #083e85 !important;
+}
+
+.link-detalle {
+    color: #0a4da3;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-detalle:hover {
+    text-decoration: underline;
+}
+
+.tabla-vacia {
+    text-align: center;
+    padding: 30px;
+    color: #888;
+}
+
+.nota-registros {
+    color: #999;
+    font-size: 13px;
+    margin-top: 15px;
+}
+/* --- ENCABEZADO Y TARJETA DE USUARIO --- */
+.encabezado-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #0a4da3;
+}
+
+.subtitulo-panel {
+    margin: 4px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.usuario-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 6px 14px;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.avatar-inicial {
+    width: 36px;
+    height: 36px;
+    background-color: #198754;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.datos-usuario {
+    display: flex;
+    flex-direction: column;
+}
+
+.nombre-usuario {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.rol-usuario {
+    font-size: 12px;
+    color: #777;
+}
+
+/* --- ESTADOS Y ENLACES DE ACCIONES EN TABLA --- */
+.badge-estado {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.state-activo {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.state-inactivo {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.link-desactivar {
+    color: #dc3545;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.link-activar {
+    color: #28a745;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.texto-usuario-actual {
+    color: #999;
+    margin-left: 10px;
+}
+.btn-logout, 
+a.btn-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f48fb1 !important; /* Rosado */
+    color: #ffffff !important;           /* Texto e ícono en blanco */
+    font-family: inherit !important;     /* Hereda exactamente la misma letra del menú */
+    font-weight: 700 !important;         /* Negrita marcada */
+    font-size: 15px !important;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: none;
+    margin: 10px 15px !important;       /* Despega el botón de los bordes del menú */
+    width: calc(100% - 30px) !important; /* Mantiene la misma anchura que 'Mi perfil' */
+    box-sizing: border-box;
+}
+
+.btn-logout span,
+.btn-logout i {
+    color: #ffffff !important;
+    font-family: inherit !important;
+    font-weight: 700 !important;
+}
+/* Botones de acción en tablas */
+.acciones-tabla a.btn-editar,
+.acciones-tabla a.btn-editar:link,
+.acciones-tabla a.btn-editar:visited {
+    display: inline-block !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    color: #0a4da3 !important;
+    background-color: #eef4ff !important;
+    border: 1px solid #cce0ff !important;
+    margin-right: 6px !important;
+}
+
+.acciones-tabla a.btn-editar:hover {
+    background-color: #0a4da3 !important;
+    color: #ffffff !important;
+}
+
+.acciones-tabla a.btn-eliminar,
+.acciones-tabla a.btn-eliminar:link,
+.acciones-tabla a.btn-eliminar:visited {
+    display: inline-block !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    color: #dc3545 !important;
+    background-color: #fde8e8 !important;
+    border: 1px solid #f8b4b4 !important;
+}
+
+.acciones-tabla a.btn-eliminar:hover {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.sin-permisos {
+    color: #888888 !important;
+    font-size: 13px !important;
+    font-style: italic !important;
+}
+/* Alineación para campos con checkbox */
+.campo-checkbox {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+}
+
+.campo-checkbox input[type="checkbox"] {
+    width: auto !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+}
+
+.campo-checkbox label {
+    margin: 0 !important;
+    cursor: pointer !important;
+    font-weight: normal !important;
+}

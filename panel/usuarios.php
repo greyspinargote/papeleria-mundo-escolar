@@ -89,12 +89,22 @@ $usuarios = mysqli_query($conexion, "SELECT * FROM usuarios ORDER BY id DESC");
 
         <div class="encabezado-panel">
 
-            <h1>Usuarios</h1>
+            <div class="header-info">
+                <h1>Usuarios</h1>
+                <p class="subtitulo-panel">Gestión y control de usuarios del sistema 👋</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="usuario-tarjeta">
+                <div class="avatar-inicial">
+                    <?php 
+                        $inicial = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr(trim($_SESSION['usuario_nombres']), 0, 1)) : 'U';
+                        echo htmlspecialchars($inicial);
+                    ?>
+                </div>
+                <div class="datos-usuario">
+                    <span class="nombre-usuario"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-usuario"><?php echo htmlspecialchars(ucfirst($_SESSION['usuario_rol'])); ?></span>
+                </div>
             </div>
 
         </div>
@@ -168,27 +178,27 @@ $usuarios = mysqli_query($conexion, "SELECT * FROM usuarios ORDER BY id DESC");
                         </td>
                         <td>
                             <?php if ($u['estado']): ?>
-                                <span style="color:#28A745; font-weight:600;">Activo</span>
+                                <span class="badge-estado state-activo">Activo</span>
                             <?php else: ?>
-                                <span style="color:#dc3545; font-weight:600;">Inactivo</span>
+                                <span class="badge-estado state-inactivo">Inactivo</span>
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="editar_usuario.php?id=<?php echo $u['id']; ?>" style="color:#0A4DA3; font-weight:600; margin-right:12px;">
+                            <a href="editar_usuario.php?id=<?php echo $u['id']; ?>" class="link-detalle">
                                 Editar
                             </a>
 
                             <?php if ($u['id'] != $_SESSION['usuario_id']): ?>
 
                                 <a href="usuarios.php?toggle=<?php echo $u['id']; ?>"
-                                   style="color:<?php echo $u['estado'] ? '#dc3545' : '#28A745'; ?>; font-weight:600;"
+                                   class="<?php echo $u['estado'] ? 'link-desactivar' : 'link-activar'; ?>"
                                    onclick="return confirm('¿<?php echo $u['estado'] ? 'Desactivar' : 'Activar'; ?> a este usuario?');">
                                     <?php echo $u['estado'] ? 'Desactivar' : 'Activar'; ?>
                                 </a>
 
                             <?php else: ?>
 
-                                <span style="color:#999;">(Tú)</span>
+                                <span class="texto-usuario-actual">(Tú)</span>
 
                             <?php endif; ?>
                         </td>

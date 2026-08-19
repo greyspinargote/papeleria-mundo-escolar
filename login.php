@@ -9,16 +9,16 @@ $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $correo   = trim($_POST['correo'] ?? '');
-    $password = $_POST['password'] ?? '';
+    $correo   = trim($_POST['nombre'] ?? '');
+    $password = $_POST['nombre'] ?? '';
 
     if ($correo === "" || $password === "") {
 
-        $error = "Ingresa tu correo y contraseña.";
+        $error = "Ingresa tu nombre y contraseña.";
 
     } else {
 
-        $correoEsc = mysqli_real_escape_string($conexion, $correo);
+        $correoEsc = mysqli_real_escape_string($conexion, $nombre);
 
         $resultado = mysqli_query($conexion, "SELECT * FROM clientes WHERE correo = '$correoEsc'");
         $cliente   = mysqli_fetch_assoc($resultado);
@@ -72,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Contraseña</label>
             <input type="password" name="password" required>
         </div>
-
         <button type="submit" class="btn-comprar">Ingresar</button>
 
         <p style="text-align:center; margin-top:20px;">

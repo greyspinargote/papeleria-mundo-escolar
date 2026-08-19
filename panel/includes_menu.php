@@ -65,9 +65,10 @@ function activo($nombreArchivo, $paginaActual) {
             <i class="fa-solid fa-circle-user"></i> Mi perfil
         </a>
 
-        <a href="logout.php" class="cerrar-sesion">
-            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-        </a>
+       <a href="logout.php" class="btn-logout">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    <span>Cerrar sesión</span>
+</a>
 
     </nav>
 

@@ -88,14 +88,25 @@ $usuario = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT * FROM usuarios WH
 
     <div class="contenido-panel">
 
+        <!-- Encabezado unificado idéntico al resto de módulos -->
         <div class="encabezado-panel">
 
-            <h1>Mi Perfil</h1>
+            <div class="header-info">
+                <h1>Mi Perfil</h1>
+                <p class="subtitulo-panel">Administra tu información personal y credenciales 👤</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="usuario-tarjeta">
+                <div class="avatar-inicial">
+                    <?php 
+                        $inicial = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr(trim($_SESSION['usuario_nombres']), 0, 1)) : 'U';
+                        echo htmlspecialchars($inicial);
+                    ?>
+                </div>
+                <div class="datos-usuario">
+                    <span class="nombre-usuario"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-usuario"><?php echo htmlspecialchars(ucfirst($_SESSION['usuario_rol'])); ?></span>
+                </div>
             </div>
 
         </div>
@@ -112,7 +123,9 @@ $usuario = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT * FROM usuarios WH
 
             <div style="text-align:center; margin-bottom:25px;">
 
-                <i class="fa-solid fa-circle-user" style="font-size:80px; color:#0A4DA3;"></i>
+                <div class="avatar-inicial" style="width:70px; height:70px; font-size:30px; margin:0 auto;">
+                    <?php echo htmlspecialchars($inicial); ?>
+                </div>
 
                 <h2 style="margin-top:10px;"><?php echo htmlspecialchars($usuario['nombres']); ?></h2>
 

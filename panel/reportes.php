@@ -69,49 +69,68 @@ $topProductos = mysqli_query($conexion, "
 
     <div class="contenido-panel">
 
+        <!-- Encabezado con diseño unificado -->
         <div class="encabezado-panel">
 
-            <h1>Reportes</h1>
+            <div class="header-info">
+                <h1>Reportes</h1>
+                <p class="subtitulo-panel">Gestión de reportes Mundo Escolar 👋</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="usuario-tarjeta">
+                <div class="avatar-inicial">
+                    <?php 
+                        $inicial = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr(trim($_SESSION['usuario_nombres']), 0, 1)) : 'U';
+                        echo htmlspecialchars($inicial);
+                    ?>
+                </div>
+                <div class="datos-usuario">
+                    <span class="nombre-usuario"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-usuario"><?php echo htmlspecialchars(ucfirst($_SESSION['usuario_rol'])); ?></span>
+                </div>
             </div>
 
         </div>
 
         <div class="tarjeta-panel">
 
-            <form method="GET" style="display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end;">
+            <form method="GET" class="form-filtros-reporte">
 
-                <div class="campo" style="margin:0;">
-                    <label>Desde</label>
-                    <input type="date" name="inicio" value="<?php echo htmlspecialchars($fechaInicio); ?>">
+                <div class="grupo-filtros">
+                    <div class="campo">
+                        <label>Desde</label>
+                        <input type="date" name="inicio" value="<?php echo htmlspecialchars($fechaInicio); ?>">
+                    </div>
+
+                    <div class="campo">
+                        <label>Hasta</label>
+                        <input type="date" name="fin" value="<?php echo htmlspecialchars($fechaFin); ?>">
+                    </div>
+
+                    <div class="campo">
+                        <label>Origen</label>
+                        <select name="origen">
+                            <option value="" <?php echo $origen === '' ? 'selected' : ''; ?>>Todos</option>
+                            <option value="web" <?php echo $origen === 'web' ? 'selected' : ''; ?>>Tienda Web</option>
+                            <option value="tienda" <?php echo $origen === 'tienda' ? 'selected' : ''; ?>>Mostrador</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-panel">
+                        <i class="fa-solid fa-filter"></i> Filtrar
+                    </button>
                 </div>
 
-                <div class="campo" style="margin:0;">
-                    <label>Hasta</label>
-                    <input type="date" name="fin" value="<?php echo htmlspecialchars($fechaFin); ?>">
+                <div class="acciones-exportar">
+                    <a href="exportar_reporte.php?inicio=<?php echo urlencode($fechaInicio); ?>&fin=<?php echo urlencode($fechaFin); ?>&origen=<?php echo urlencode($origen); ?>"
+                       class="btn-panel btn-csv">
+                        <i class="fa-solid fa-file-csv"></i> Exportar CSV
+                    </a>
+
+                    <button type="button" onclick="window.print();" class="btn-panel btn-pdf">
+                        <i class="fa-solid fa-file-pdf"></i> Imprimir / PDF
+                    </button>
                 </div>
-
-                <div class="campo" style="margin:0;">
-                    <label>Origen</label>
-                    <select name="origen">
-                        <option value="" <?php echo $origen === '' ? 'selected' : ''; ?>>Todos</option>
-                        <option value="web" <?php echo $origen === 'web' ? 'selected' : ''; ?>>Tienda Web</option>
-                        <option value="tienda" <?php echo $origen === 'tienda' ? 'selected' : ''; ?>>Mostrador</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-panel">
-                    <i class="fa-solid fa-filter"></i> Filtrar
-                </button>
-
-                <a href="exportar_reporte.php?inicio=<?php echo urlencode($fechaInicio); ?>&fin=<?php echo urlencode($fechaFin); ?>&origen=<?php echo urlencode($origen); ?>"
-                   class="btn-panel" style="background:#17a2b8; text-decoration:none; display:inline-flex; align-items:center;">
-                    <i class="fa-solid fa-file-csv"></i>&nbsp; Exportar CSV
-                </a>
 
             </form>
 

@@ -1204,3 +1204,21 @@ footer{
         font-size: 14px;
     }
 }
+.titulo-contacto-banner p {
+    font-weight: 900 !important;
+}
+.oculto { display: none; }
+.alerta-exito { background-color: #d4edda; color: #155724; padding: 10px; }
+.alerta-error { background-color: #f8d7da; color: #721c24; padding: 10px; }
+/* Ocultar las secciones de pago por defecto */
+.seccion-metodo {
+    display: none;
+}
+
+/* Opcional: si quieres darles algo de orden visual desde tu CSS aparte */
+.seccion-metodo {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

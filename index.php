@@ -13,8 +13,6 @@ include "includes/navbar.php";
 
 <!-- SLIDER -->
 
-<!-- SLIDER -->
-
 <section class="banner">
 
     <div class="slider">

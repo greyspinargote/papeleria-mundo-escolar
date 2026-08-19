@@ -33,10 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <h2>Contáctanos</h2>
 
-    <p>
-        ¿Tienes alguna pregunta? Escríbenos y te responderemos lo antes posible.
-    </p>
-
     <div class="datos-contacto">
 
         <div>
@@ -82,6 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="formulario-compra" style="margin-top:50px; text-align:left;">
+
+        <div style="margin-bottom: 25px; text-align: center;">
+            <p style="font-size: 16px; color: #555; font-weight: 500;">
+                ¿Necesitas asesoría o cotizar un pedido? Estamos para ayudarte.
+            </p>
+        </div>
 
         <?php if ($mensaje_enviado): ?>
 

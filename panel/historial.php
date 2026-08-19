@@ -11,19 +11,12 @@ $estado   = isset($_GET['estado']) && $_GET['estado'] !== '' ? $_GET['estado'] :
 $condiciones = [];
 
 if ($busqueda !== "") {
-
     $busquedaEsc = mysqli_real_escape_string($conexion, $busqueda);
-
     if (ctype_digit($busqueda)) {
-
         $condiciones[] = "p.id = " . (int)$busqueda;
-
     } else {
-
         $condiciones[] = "(c.nombres LIKE '%$busquedaEsc%' OR c.apellidos LIKE '%$busquedaEsc%' OR c.correo LIKE '%$busquedaEsc%')";
-
     }
-
 }
 
 if ($origen !== '') {
@@ -67,54 +60,68 @@ $estadosDisponibles = mysqli_query($conexion, "SELECT DISTINCT estado FROM pedid
 
         <div class="encabezado-panel">
 
-            <h1>Historial de Ventas</h1>
+            <div class="header-info">
+                <h1>Historial de Ventas</h1>
+                <p class="subtitulo-panel">Consulta y gestión de ventas de Mundo Escolar 👋</p>
+            </div>
 
-            <div class="usuario-actual">
-                <i class="fa-solid fa-circle-user"></i>
-                <?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?>
-                <span class="badge-rol"><?php echo htmlspecialchars($_SESSION['usuario_rol']); ?></span>
+            <div class="usuario-tarjeta">
+                <div class="avatar-inicial">
+                    <?php 
+                        $inicial = !empty($_SESSION['usuario_nombres']) ? strtoupper(substr(trim($_SESSION['usuario_nombres']), 0, 1)) : 'U';
+                        echo htmlspecialchars($inicial);
+                    ?>
+                </div>
+                <div class="datos-usuario">
+                    <span class="nombre-usuario"><?php echo htmlspecialchars($_SESSION['usuario_nombres']); ?></span>
+                    <span class="rol-usuario"><?php echo htmlspecialchars(ucfirst($_SESSION['usuario_rol'])); ?></span>
+                </div>
             </div>
 
         </div>
 
         <div class="tarjeta-panel">
 
-            <form method="GET" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+            <form method="GET" class="form-filtros-reporte">
 
-                <div class="campo" style="margin:0; flex:1; min-width:200px;">
-                    <label>Buscar (# pedido, nombre o correo)</label>
-                    <input type="text" name="buscar" value="<?php echo htmlspecialchars($busqueda); ?>" placeholder="Ej: 12 o María">
+                <div class="grupo-filtros">
+                    <div class="campo campo-busqueda">
+                        <label>Buscar (# pedido, nombre o correo)</label>
+                        <input type="text" name="buscar" value="<?php echo htmlspecialchars($busqueda); ?>" placeholder="Ej: 12 o María">
+                    </div>
+
+                    <div class="campo">
+                        <label>Origen</label>
+                        <select name="origen">
+                            <option value="" <?php echo $origen === '' ? 'selected' : ''; ?>>Todos</option>
+                            <option value="web" <?php echo $origen === 'web' ? 'selected' : ''; ?>>Tienda Web</option>
+                            <option value="tienda" <?php echo $origen === 'tienda' ? 'selected' : ''; ?>>Mostrador</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Estado</label>
+                        <select name="estado">
+                            <option value="">Todos</option>
+                            <?php while ($e = mysqli_fetch_assoc($estadosDisponibles)) { ?>
+                                <option value="<?php echo htmlspecialchars($e['estado']); ?>"
+                                    <?php echo $estado === $e['estado'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($e['estado']); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-panel">
+                        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                    </button>
                 </div>
 
-                <div class="campo" style="margin:0;">
-                    <label>Origen</label>
-                    <select name="origen">
-                        <option value="" <?php echo $origen === '' ? 'selected' : ''; ?>>Todos</option>
-                        <option value="web" <?php echo $origen === 'web' ? 'selected' : ''; ?>>Tienda Web</option>
-                        <option value="tienda" <?php echo $origen === 'tienda' ? 'selected' : ''; ?>>Mostrador</option>
-                    </select>
+                <div class="acciones-exportar">
+                    <a href="historial.php" class="btn-panel btn-limpiar">
+                        <i class="fa-solid fa-rotate-left"></i> Limpiar
+                    </a>
                 </div>
-
-                <div class="campo" style="margin:0;">
-                    <label>Estado</label>
-                    <select name="estado">
-                        <option value="">Todos</option>
-                        <?php while ($e = mysqli_fetch_assoc($estadosDisponibles)) { ?>
-                            <option value="<?php echo htmlspecialchars($e['estado']); ?>"
-                                <?php echo $estado === $e['estado'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($e['estado']); ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-panel">
-                    <i class="fa-solid fa-magnifying-glass"></i> Buscar
-                </button>
-
-                <a href="historial.php" class="btn-panel rojo" style="text-decoration:none; display:flex; align-items:center;">
-                    Limpiar
-                </a>
 
             </form>
 
@@ -137,7 +144,7 @@ $estadosDisponibles = mysqli_query($conexion, "SELECT DISTINCT estado FROM pedid
                 <?php if (mysqli_num_rows($pedidos) === 0): ?>
 
                     <tr>
-                        <td colspan="7" style="text-align:center; padding:30px; color:#888;">
+                        <td colspan="7" class="tabla-vacia">
                             No se encontraron ventas con esos filtros.
                         </td>
                     </tr>
@@ -160,7 +167,7 @@ $estadosDisponibles = mysqli_query($conexion, "SELECT DISTINCT estado FROM pedid
                             <td><?php echo htmlspecialchars($p['estado']); ?></td>
                             <td><?php echo moneda($p['total']); ?></td>
                             <td>
-                                <a href="ver_pedido.php?id=<?php echo $p['id']; ?>" style="color:#0A4DA3; font-weight:600;">
+                                <a href="ver_pedido.php?id=<?php echo $p['id']; ?>" class="link-detalle">
                                     Ver
                                 </a>
                             </td>
@@ -172,7 +179,7 @@ $estadosDisponibles = mysqli_query($conexion, "SELECT DISTINCT estado FROM pedid
 
             </table>
 
-            <p style="color:#999; font-size:13px; margin-top:15px;">
+            <p class="nota-registros">
                 Mostrando los últimos 100 registros. Usa los filtros para encontrar ventas específicas.
             </p>
 
