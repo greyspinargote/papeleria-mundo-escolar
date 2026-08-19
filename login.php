@@ -9,18 +9,18 @@ $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $correo   = trim($_POST['nombre'] ?? '');
-    $password = $_POST['nombre'] ?? '';
+    $nombre   = trim($_POST['nombre'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-    if ($correo === "" || $password === "") {
+    if ($nombre === "" || $password === "") {
 
         $error = "Ingresa tu nombre y contraseña.";
 
     } else {
 
-        $correoEsc = mysqli_real_escape_string($conexion, $nombre);
+        $nombreEsc = mysqli_real_escape_string($conexion, $nombre);
 
-        $resultado = mysqli_query($conexion, "SELECT * FROM clientes WHERE correo = '$correoEsc'");
+        $resultado = mysqli_query($conexion, "SELECT * FROM clientes WHERE nombres = '$nombreEsc'");
         $cliente   = mysqli_fetch_assoc($resultado);
 
         if ($cliente && password_verify($password, $cliente['password'])) {
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } else {
 
-            $error = "Correo o contraseña incorrectos.";
+            $error = "Nombre o contraseña incorrectos.";
 
         }
 
@@ -56,22 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" class="formulario-compra">
 
         <?php if ($error): ?>
-
-            <div style="background:#f8d7da; color:#721c24; padding:14px; border-radius:8px; margin-bottom:20px;">
+            <div class="alerta-error">
                 <?php echo htmlspecialchars($error); ?>
             </div>
-
         <?php endif; ?>
 
         <div class="grupo">
-            <label>Correo electrónico</label>
-            <input type="email" name="correo" required autofocus>
+            <label>Nombre de usuario</label>
+            <input type="text" name="nombre" required autofocus>
         </div>
 
         <div class="grupo">
             <label>Contraseña</label>
             <input type="password" name="password" required>
         </div>
+
+        <div class="grupo-enlace-derecha">
+            <a href="recuperar.php">¿Olvidaste tu contraseña?</a>
+        </div>
+
         <button type="submit" class="btn-comprar">Ingresar</button>
 
         <p style="text-align:center; margin-top:20px;">

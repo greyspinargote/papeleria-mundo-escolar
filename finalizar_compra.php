@@ -32,9 +32,7 @@ $carritoVacio = !isset($_SESSION['carrito']) || count($_SESSION['carrito']) === 
         <h2>Finalizar Compra</h2>
 
         <p>
-
             Complete los siguientes datos para registrar su pedido.
-
         </p>
 
     </div>
@@ -120,15 +118,39 @@ $carritoVacio = !isset($_SESSION['carrito']) || count($_SESSION['carrito']) === 
 
             <label>Método de pago</label>
 
-            <select name="pago">
-
-                <option>Efectivo</option>
-
-                <option>Transferencia</option>
-
-                <option>Tarjeta</option>
-
+            <select name="pago" id="metodoPago" required>
+                <option value="">Seleccione...</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Tarjeta">Tarjeta</option>
             </select>
+
+        </div>
+
+        <!-- Contenedor dinámico para los datos de la tarjeta -->
+        <div id="contenedorTarjeta" class="contenedor-tarjeta-oculto">
+
+            <h3 class="subtitulo-tarjeta">Datos de la Tarjeta</h3>
+
+            <div class="grupo">
+                <label>Número de tarjeta</label>
+                <input type="text" name="numero_tarjeta" placeholder="1234 5678 9012 3456" maxlength="16">
+            </div>
+
+            <div class="grupo">
+                <label>Fecha de expiración</label>
+                <input type="text" name="expiracion_tarjeta" placeholder="MM/AA" maxlength="5">
+            </div>
+
+            <div class="grupo">
+                <label>CVV</label>
+                <input type="password" name="cvv_tarjeta" placeholder="123" maxlength="4">
+            </div>
+
+            <div class="grupo">
+                <label>Nombre del titular</label>
+                <input type="text" name="titular_tarjeta" placeholder="Como aparece en la tarjeta">
+            </div>
 
         </div>
 
@@ -145,6 +167,24 @@ $carritoVacio = !isset($_SESSION['carrito']) || count($_SESSION['carrito']) === 
     <?php endif; ?>
 
 </section>
+
+<script>
+document.getElementById('metodoPago').addEventListener('change', function() {
+    var contenedorTarjeta = document.getElementById('contenedorTarjeta');
+    
+    if (this.value === 'Tarjeta') {
+        contenedorTarjeta.style.display = 'block';
+    } else {
+        contenedorTarjeta.style.display = 'none';
+        
+        // Limpiamos los campos si cambia de opinión
+        document.querySelector('input[name="numero_tarjeta"]').value = '';
+        document.querySelector('input[name="expiracion_tarjeta"]').value = '';
+        document.querySelector('input[name="cvv_tarjeta"]').value = '';
+        document.querySelector('input[name="titular_tarjeta"]').value = '';
+    }
+});
+</script>
 
 <?php
 

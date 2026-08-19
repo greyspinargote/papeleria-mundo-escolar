@@ -1222,3 +1222,42 @@ footer{
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+/* Estilo para los mensajes de error o alerta en formularios */
+.alerta-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* Alineación y diseño para el enlace de "¿Olvidaste tu contraseña?" */
+.grupo-enlace-derecha {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.grupo-enlace-derecha a {
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--azul);
+}
+
+.grupo-enlace-derecha a:hover {
+    text-decoration: underline;
+}
+.contenedor-tarjeta-oculto {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.subtitulo-tarjeta {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
